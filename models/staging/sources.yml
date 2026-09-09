@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: retail_raw
+    database: vctbatch-9916-500703
+    schema: retail_raw
+
+    tables:
+      - name: customers
+      - name: products
+      - name: orders
+      - name: order_items
+      - name: payments
+      - name: stores
+      - name: returns
