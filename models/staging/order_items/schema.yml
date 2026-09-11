@@ -1,0 +1,39 @@
+version: 2
+models:
+  - name: stg_order_items
+    description: "Cleaned and standardized order item records."
+
+    columns:
+      - name: order_item_id
+        description:  "Unique identifier for an order line."
+        data_tests:
+          - not_null
+          - unique
+      - name: order_id
+        description: "Identifier of the associated order."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_orders')
+              field: order_id
+      - name: product_id
+        description: "Identifier of the purchased product."
+        data_tests:
+           - not_null
+           - relationships:
+              to: ref('stg_products')
+              field: product_id
+
+      - name: quantity
+        description: "Number of units purchased."
+        data_tests:
+           - not_null
+
+      - name: unit_price
+        description:  "Price per unit."
+        data_tests:
+          - not_null
+                    
+
+          
+
