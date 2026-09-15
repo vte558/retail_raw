@@ -25,5 +25,7 @@ from {{source("retail_raw","orders")}}
 select count(*) as row_count
 from {{ source("retail_raw", "orders") }}
 
-select count(*) as row_count
-from {{ ref("stg_orders") }}
+select *  
+from {{ source("retail_raw","orders") }} 
+
+where customer_id=101
