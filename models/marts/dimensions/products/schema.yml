@@ -1,0 +1,32 @@
+version: 2
+models:
+  - name: dim_product
+    description: "Gold product dimension containing one record per product."
+
+    columns:
+
+      - name: product_id
+        description: "Business identifier of the product."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: product_name
+        description: "Name of the product."
+        data_tests:
+          - not_null
+
+      - name: category
+        description: "Product category."
+        data_tests:
+          - not_null
+
+      - name: brand
+        description: "Product brand."
+        data_tests:
+          - not_null
+
+      - name: unit_price
+        description: "Current selling price of the product."
+        data_tests:
+          - not_null

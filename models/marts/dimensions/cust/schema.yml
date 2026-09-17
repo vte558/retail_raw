@@ -1,0 +1,43 @@
+version: 2
+
+models:
+
+  - name: dim_customer
+
+    description: "Gold customer dimension containing one record per customer."
+
+    columns:
+
+      - name: customer_id
+        description: "Business identifier of the customer."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: customer_name
+        description: "Customer full name."
+        data_tests:
+          - not_null
+
+      - name: email
+        description: "Customer email address."
+        data_tests:
+          - not_null
+
+      - name: phone
+        description: "Customer phone number."
+
+      - name: city
+        description: "Customer city."
+
+      - name: state
+        description: "Customer state."
+
+      - name: country
+        description: "Customer country."
+
+      - name: created_at
+        description: "Timestamp when the customer record was created."
+
+      - name: updated_at
+        description: "Timestamp when the customer record was last updated."

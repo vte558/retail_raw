@@ -33,4 +33,8 @@ models:
                 - processing
                 - delivered
                 - shipped
+      - name: updated_at
+        description: "Timestamp when the order was last updated."
+        data_tests:
+          - not_null
           

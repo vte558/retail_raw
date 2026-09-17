@@ -46,7 +46,7 @@ models:
 
     marts:
       +schema: retail_gold
-      +materialized: view
+      +materialized: table
       
 
     

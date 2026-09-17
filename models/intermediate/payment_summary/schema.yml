@@ -1,0 +1,31 @@
+version: 
+models:
+  - name: int_payment_summary
+    description: "Order-level payment summary derived from staged payment records."
+    columns:
+      - name: order_id
+        description: "Order identifier. One row per order."
+        data_tests:
+          - not_null
+          - unique
+          
+      - name: payment_count
+        description: "Number of payment records associated with the order."
+        data_tests:
+          - not_null
+          
+      - name: successful_payment_amount
+        description: "Total amount from successful payments."
+        data_tests:
+          - not_null
+          
+      - name: failed_paymnet_amount
+        description:  "Total amount from failed payments."
+        data_tests:
+          - not_null
+          
+      - name: total_payment_amount
+        description: "Total payment amount across payment statuses."
+        data_tests:
+          - not_null
+          

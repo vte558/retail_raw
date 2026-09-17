@@ -1,0 +1,54 @@
+version: 2
+models:
+  - name: int_customer_orders
+    description:  "Intermediate order-level model enriched with customer attributes."
+    columns:
+      - name: order_id
+        description: "Unique identifier for the order."
+        data_tests:
+          - not_null
+          - unique
+      - name: customer_id
+        description: "Identifier of the customer who placed the order."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+      - name: customer_name
+        description: "Customer full name."
+        data_tests:
+          - not_null
+          
+      - name: email
+        description:  "Customer email address."
+
+      - name: phone
+        description: "Customer phone number."
+
+      - name: city
+        description: "Customer city "
+     
+      - name: state
+        description: "Customer State"
+
+      - name: country
+        description: "Customer Country"
+
+      - name: order_date
+        description:  "Customr Order Date"
+        data_tests:
+          - not_null
+      - name : order_status
+        description: "Customer order status "
+        data_tests:
+          - not_null
+        
+      - name: store_id
+        description: "Custoer purchaed store ID"
+        data_tests:
+          - not_null
+          
+
+
+

@@ -1,0 +1,48 @@
+version: 2
+models:
+  - name: int_return
+    description:  "Intermediate return-level model enriched with order attributes."
+
+    columns:
+      - name: return_id
+        description:  "Unique identifier for the return."
+        data_tests:
+          - unique
+          - not_null
+      - name: order_id
+        description: "Identifier of the order associated with the return."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_orders')
+              field: order_id
+
+      - name: customer_id
+        description: "Customer associated with the returned order."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+
+      - name: return_reason
+        description: "Reason provided for the return."
+        data_tests:
+          - not_null
+
+      - name: return_date
+        description: "Date on which the return was recorded."
+        data_tests:
+          - not_null
+
+      - name: order_date
+        description: "Date on which the original order was placed."
+        data_tests:
+          - not_null
+
+      - name: order_status
+        description: "Current status of the original order."
+        data_tests:
+          - not_null
+     
+  

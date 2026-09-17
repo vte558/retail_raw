@@ -28,4 +28,14 @@ from {{ source("retail_raw", "orders") }}
 select *  
 from {{ source("retail_raw","orders") }} 
 
+
+
 where customer_id=101
+
+select 
+    order_id,
+    customer_id,
+    store_id,
+    order_date,
+    order_status
+from {{ref('stg_orders')}}
