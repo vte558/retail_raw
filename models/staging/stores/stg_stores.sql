@@ -1,6 +1,6 @@
 select
     store_id,
-    trim(store_name) as store_name,
-    upper(trim(city)) as city,
-    upper(trim(state)) as state
+    {{ clean_string('store_name')}} as store_name,
+    {{ clean_string('city')}} as city,
+   {{ clean_string('state')}} as state
 from {{ source("retail_raw", "stores") }}

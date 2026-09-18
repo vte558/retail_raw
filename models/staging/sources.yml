@@ -5,10 +5,20 @@ sources:
     database: vctbatch-9916-500703
     schema: retail_raw
 
+
     tables:
       - name: customers
       - name: products
       - name: orders
+        config: 
+          freshness:
+            warn_after:
+              count: 1
+              period: hour
+            error_after:
+              count: 2
+              period: hour
+          loaded_at_field: updated_at
       - name: order_items
       - name: payments
       - name: stores

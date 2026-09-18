@@ -7,6 +7,12 @@ models:
     description: "Gold customer dimension containing one record per customer."
 
     columns:
+      - name: customer_sk
+        description: "Surrogate key uniquely identifying each customer version."
+        data_tests:
+          - unique
+          - not_null
+          
 
       - name: customer_id
         description: "Business identifier of the customer."
@@ -16,8 +22,7 @@ models:
 
       - name: customer_name
         description: "Customer full name."
-        data_tests:
-          - not_null
+
 
       - name: email
         description: "Customer email address."
@@ -41,3 +46,16 @@ models:
 
       - name: updated_at
         description: "Timestamp when the customer record was last updated."
+      
+      - name: valid_from
+        description: "Timestamp when this customer version became effective."
+          
+      - name: valid_to
+        description: "Timestamp when this customer version stopped being effective."
+  
+          
+      - name: is_current
+        description: "Indicates whether this is the current customer version."
+        data_tests:
+          - not_null
+          

@@ -1,12 +1,14 @@
-{{
-    config(
-        materialized='incremental',
-        unique_key='customer_id',
-        incremental_strategy='merge'
-    )
-}}
-
 select
+    to_hex(
+        sha256(
+            concat(
+                cast(customer_id as string),
+                '|',
+                cast(dbt_valid_from as string)
+            )
+        )
+    ) as customer_sk,
+
     customer_id,
     customer_name,
     email,
@@ -15,15 +17,15 @@ select
     state,
     country,
     created_at,
-    updated_at
+    updated_at,
 
-from {{ ref('stg_customers') }}
+    dbt_valid_from as valid_from,
+    dbt_valid_to as valid_to,
 
-{% if is_incremental() %}
+    case
+        when dbt_valid_to is null then true
+        else false
+    end as is_current
 
-where updated_at > (
-    select max(updated_at)
-    from {{ this }}
-)
+from {{ ref('customers_snapshot') }}
 
-{% endif %}
