@@ -152,3 +152,18 @@ from customers
 select
      * 
     from {{ ref('int_product_sales') }}
+
+
+
+select
+    store_id,
+
+    {% for column in ['store_name', 'city', 'state'] %}
+
+        {{ column }}
+
+        {% if not loop.last %}, {% endif %}
+
+    {% endfor %}
+
+from {{ ref('stg_stores') }}
