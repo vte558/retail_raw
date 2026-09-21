@@ -1,0 +1,40 @@
+version: 2
+models:
+  - name: stg_orders
+    description:  "Cleaned and standardized customer order records."
+
+    columns:
+      - name: order_id
+        description: "Unique identifier for an order."
+        data_tests:
+          - not_null
+          - unique
+      - name: customer_id
+        description: "Identifier of the customer who placed the order."
+        data_tests:
+          - not_null
+          
+      - name: store_id
+        description:  "Identifier of the store associated with the order."
+        data_tests:
+          - not_null
+        
+      - name: order_date
+        description: "Date on which the order was placed."
+        data_tests:
+          - not_null
+      - name: order_status
+        description: "Current status of the order."
+        data_tests:
+          - not_null
+          - accepted_values:
+              values:
+                - cancelled
+                - processing
+                - delivered
+                - shipped
+      - name: updated_at
+        description: "Timestamp when the order was last updated."
+        data_tests:
+          - not_null
+          

@@ -1,0 +1,32 @@
+version: 2
+models:
+  - name: stg_payments
+    columns:
+      - name: payment_id
+        description:  "Unique identifier for a payment transaction."
+        data_tests:
+          - not_null
+          - unique
+          
+      - name: order_id
+        description: "Identifier of the associated order."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_orders')
+              field: order_id
+
+      - name: payment_method
+        description: "Method used to make the payment."
+        data_tests:
+          - not_null
+          
+      - name: payment_amount
+        description: "Payment amount."
+        data_tests:
+           - not_null
+      - name: payment_status
+        description: "Current status of the payment."
+        data_tests:
+          - not_null
+          

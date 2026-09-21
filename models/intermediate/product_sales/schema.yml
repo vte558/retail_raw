@@ -1,0 +1,59 @@
+version: 2
+
+models:
+
+  - name: int_product_sales
+
+    description: "Intermediate model combining order items with product attributes. One row per order item."
+
+    columns:
+
+      - name: order_item_id
+        description: "Unique identifier for the order line."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: order_id
+        description: "Identifier of the order."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_orders')
+              field: order_id
+
+      - name: product_id
+        description: "Identifier of the purchased product."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_products')
+              field: product_id
+
+      - name: product_name
+        description: "Name of the product."
+        data_tests:
+          - not_null
+
+      - name: category
+        description: "Product category."
+        data_tests:
+          - not_null
+
+      - name: brand
+        description: "Product brand."
+
+      - name: quantity
+        description: "Number of units purchased."
+        data_tests:
+          - not_null
+
+      - name: unit_price
+        description: "Price per unit."
+        data_tests:
+          - not_null
+
+      - name: line_amount
+        description: "Calculated sales amount for the order item."
+        data_tests:
+          - not_null

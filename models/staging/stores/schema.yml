@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: stg_stores
+    description: "Cleaned and standardized store records."
+
+    columns:
+
+      - name: store_id
+        description: "Unique identifier for a store."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: store_name
+        description: "Name of the store."
+        data_tests:
+          - not_null
+
+      - name: city
+        description: "City where the store is located."
+        data_tests:
+          - not_null
+
+      - name: state
+        description: "State where the store is located."
+        data_tests:
+          - not_null

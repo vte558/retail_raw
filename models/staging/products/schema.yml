@@ -1,0 +1,30 @@
+version: 2
+models:
+  - name: stg_products
+    description: "Cleaned and standardized product records."
+
+    columns:
+      - name: product_id
+        description: "Unique identifier for the product."
+        data_tests:
+          - not_null
+          - unique
+      - name: product_name
+        description:  "Product name."
+        data_tests:
+          - not_null
+      - name: category
+        description: "Product category"
+        data_tests:
+          - not_null
+      - name: brand
+        description: "Product brand"
+
+      - name: unit_price
+        description: "Selling price per unit."
+        data_tests:
+           - not_null
+          
+         
+          
+      

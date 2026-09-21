@@ -1,0 +1,232 @@
+version: 2
+
+models:
+
+  - name: fact_orders
+
+    description: "Gold order-level fact table containing one record per order."
+
+    columns:
+
+      - name: order_id
+        description: "Unique identifier for the order."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: customer_id
+        description: "Customer who placed the order."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customer')
+              field: customer_id
+
+
+      - name: order_date
+        description: "Date on which the order was placed."
+        data_tests:
+          - not_null
+
+      - name: order_status
+        description: "Current status of the order."
+        data_tests:
+          - not_null
+          - accepted_values:
+              values:
+                - cancelled
+                - processing
+                - delivered
+                - shipped
+
+      - name: order_amount
+        description: "Total sales amount for the order."
+        data_tests:
+          - not_null
+
+      - name: total_quantity
+        description: "Total quantity of products in the order."
+        data_tests:
+          - not_null
+
+      - name: total_items
+        description: "Number of order items in the order."
+        data_tests:
+          - not_null
+
+  - name: fact_order_items
+    description: "Gold order-item fact table containing one record per order line."
+
+    columns:
+
+      - name: order_item_id
+        description: "Unique identifier for the order item."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: order_id
+        description: "Identifier of the associated order."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('fact_orders')
+              field: order_id
+
+      - name: product_id
+        description: "Identifier of the purchased product."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_product')
+              field: product_id
+
+      - name: customer_id
+        description: "Customer who placed the order."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customer')
+              field: customer_id
+
+      - name: store_id
+        description: "Store associated with the order."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_store')
+              field: store_id
+
+      - name: order_date
+        description: "Date on which the order was placed."
+        data_tests:
+          - not_null
+
+      - name: order_status
+        description: "Current status of the order."
+        data_tests:
+          - not_null
+          - accepted_values:
+              values:
+                - cancelled
+                - processing
+                - delivered
+                - shipped
+
+      - name: quantity
+        description: "Number of units purchased."
+        data_tests:
+          - not_null
+
+      - name: unit_price
+        description: "Price per unit."
+        data_tests:
+          - not_null
+
+      - name: line_amount
+        description: "Sales amount for the order item."
+        data_tests:
+          - not_null
+  - name: fact_payments
+
+    description: "Gold payment transaction fact table containing one record per payment transaction."
+
+    columns:
+
+      - name: payment_id
+        description: "Unique identifier for the payment transaction."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: order_id
+        description: "Identifier of the associated order."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('fact_orders')
+              field: order_id
+
+      - name: customer_id
+        description: "Customer associated with the order."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customer')
+              field: customer_id
+
+
+
+      - name: order_date
+        description: "Date on which the order was placed."
+        data_tests:
+          - not_null
+
+      - name: payment_method
+        description: "Method used to make the payment."
+        data_tests:
+          - not_null
+
+      - name: payment_status
+        description: "Status of the payment transaction."
+        data_tests:
+          - not_null
+
+      - name: payment_amount
+        description: "Amount associated with the payment transaction."
+        data_tests:
+          - not_null
+          
+  - name: fact_returns
+
+    description: "Gold return fact table containing one record per return transaction."
+
+    columns:
+
+      - name: return_id
+        description: "Unique identifier for the return."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: order_id
+        description: "Order associated with the return."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('fact_orders')
+              field: order_id
+
+      - name: customer_id
+        description: "Customer associated with the returned order."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customer')
+              field: customer_id
+
+ 
+      - name: return_reason
+        description: "Reason provided for the return."
+        data_tests:
+          - not_null
+
+      - name: return_date
+        description: "Date on which the return was recorded."
+        data_tests:
+          - not_null
+
+      - name: order_date
+        description: "Date on which the original order was placed."
+        data_tests:
+          - not_null
+
+      - name: order_status
+        description: "Current status of the original order."
+        data_tests:
+          - not_null
+
+      - name: days_to_return
+        description: "Number of days between the original order and return."
+        data_tests:
+          - not_null
