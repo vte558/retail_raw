@@ -1,5 +1,5 @@
 select
-    to_hex(
+   /* to_hex(
         sha256(
             concat(
                 cast(customer_id as string),
@@ -7,8 +7,12 @@ select
                 cast(dbt_valid_from as string)
             )
         )
-    ) as customer_sk,
+    ) as customer_sk,*/
 
+    {{ dbt_utils.generate_surrogate_key([
+        'customer_id',
+        'dbt_valid_from'
+    ])}} as customer_sk ,
     customer_id,
     customer_name,
     email,

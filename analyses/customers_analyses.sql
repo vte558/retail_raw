@@ -167,3 +167,14 @@ select
     {% endfor %}
 
 from {{ ref('stg_stores') }}
+
+
+
+select 
+    customer_id,
+    customer_name,
+    email,
+    city,
+    state,
+    country
+    from {{ ref('stg_customers')}}
