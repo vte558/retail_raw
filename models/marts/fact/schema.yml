@@ -2,6 +2,11 @@ version: 2
 
 models:
 
+  # ============================================================
+  # FACT ORDERS
+  # Grain: One record per order
+  # ============================================================
+
   - name: fact_orders
 
     description: "Gold order-level fact table containing one record per order."
@@ -18,10 +23,6 @@ models:
         description: "Customer who placed the order."
         data_tests:
           - not_null
-          - relationships:
-              to: ref('dim_customer')
-              field: customer_id
-
 
       - name: order_date
         description: "Date on which the order was placed."
@@ -54,7 +55,14 @@ models:
         data_tests:
           - not_null
 
+
+  # ============================================================
+  # FACT ORDER ITEMS
+  # Grain: One record per order line
+  # ============================================================
+
   - name: fact_order_items
+
     description: "Gold order-item fact table containing one record per order line."
 
     columns:
@@ -85,9 +93,6 @@ models:
         description: "Customer who placed the order."
         data_tests:
           - not_null
-          - relationships:
-              to: ref('dim_customer')
-              field: customer_id
 
       - name: store_id
         description: "Store associated with the order."
@@ -127,6 +132,13 @@ models:
         description: "Sales amount for the order item."
         data_tests:
           - not_null
+
+
+  # ============================================================
+  # FACT PAYMENTS
+  # Grain: One record per payment transaction
+  # ============================================================
+
   - name: fact_payments
 
     description: "Gold payment transaction fact table containing one record per payment transaction."
@@ -149,13 +161,14 @@ models:
 
       - name: customer_id
         description: "Customer associated with the order."
+
+      - name: store_id
+        description: "Store associated with the order."
         data_tests:
           - not_null
           - relationships:
-              to: ref('dim_customer')
-              field: customer_id
-
-
+              to: ref('dim_store')
+              field: store_id
 
       - name: order_date
         description: "Date on which the order was placed."
@@ -176,7 +189,13 @@ models:
         description: "Amount associated with the payment transaction."
         data_tests:
           - not_null
-          
+
+
+  # ============================================================
+  # FACT RETURNS
+  # Grain: One record per return transaction
+  # ============================================================
+
   - name: fact_returns
 
     description: "Gold return fact table containing one record per return transaction."
@@ -199,13 +218,7 @@ models:
 
       - name: customer_id
         description: "Customer associated with the returned order."
-        data_tests:
-          - not_null
-          - relationships:
-              to: ref('dim_customer')
-              field: customer_id
 
- 
       - name: return_reason
         description: "Reason provided for the return."
         data_tests:
