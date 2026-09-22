@@ -8,8 +8,8 @@ with product_sales_cte as (
         avg(unit_price) as average_unit_price
     from {{ ref('fact_order_items') }}
     group by product_id
-
 )
+
 select
     p.product_id,
     p.product_name,
@@ -21,6 +21,13 @@ select
     coalesce(s.item_count, 0) as item_count,
     coalesce(s.quantity_sold, 0) as quantity_sold,
     coalesce(s.total_sales, 0) as total_sales,
+
+    case
+        when coalesce(s.quantity_sold, 0) > 0
+        then coalesce(s.total_sales, 0) / s.quantity_sold
+        else 0
+    end as revenue_per_unit,
+
     coalesce(s.average_unit_price, 0) as average_unit_price
 
 from {{ ref('dim_product') }} as p

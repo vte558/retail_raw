@@ -1,12 +1,16 @@
 with customer_sales_cte as (
-    select 
-        customer_id ,
-        count(order_id) as order_count,
-        count(order_item_id) as item_count,
+
+    select
+        customer_id,
+        count(distinct order_id) as order_count,
+        count(distinct order_item_id) as item_count,
         sum(quantity) as quantity_purchased,
         sum(line_amount) as total_sale_amount
-    from {{ref('fact_order_items')}}
+
+    from {{ ref('fact_order_items') }}
+
     group by customer_id
+
 )
 
 select
@@ -28,7 +32,7 @@ select
         else 0
     end as average_order_value
 
-from {{ ref('dim_customer') }} as c
+from {{ ref('stg_customers') }} as c
 
 left join customer_sales_cte as s
     on c.customer_id = s.customer_id
