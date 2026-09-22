@@ -151,3 +151,8 @@ models:
         description: "Average transaction unit price for the product."
         data_tests:
           - not_null
+      - name: revenue_per_unit
+        description: "Average revenue generated per unit sold."
+        data_tests:
+          - not_null
+          
